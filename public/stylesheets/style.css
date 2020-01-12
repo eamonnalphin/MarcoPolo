@@ -1,8 +1,12 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: rgba(45,45,45,1);
+  background-image: URL('../images/background-future.jpg');
+  color: white;
 }
 
 a {
   color: #00B7FF;
 }
+

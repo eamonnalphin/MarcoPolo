@@ -3,12 +3,31 @@ var router = express.Router();
 var appModel = require('../models/modelFile')
 
 exports.render = (req, res, next) => {
-    renderPage(req,res);
+    try{
+        if(req.session.loggedin){
+            renderPage(req,res);
+        }else{
+            res.redirect('/loginScreen')
+        }
+    }catch(err){
+        res.redirect('/loginScreen')
+    }
+
 }
 
 
 exports.post = (req, res, next) => {
-    console.log("got a post");
+    console.log("Got a random post");
+    try{
+        if(req.session.loggedin){
+            renderPage(req,res);
+        }else{
+            res.redirect('/loginScreen')
+        }
+    }catch(err){
+        res.redirect('/loginScreen')
+    }
+
 }
 
 

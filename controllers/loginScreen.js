@@ -12,6 +12,9 @@ exports.render = (req, res, next) => {
 
 exports.post = (req, res, next) => {
     console.log("got an unknown post.");
+    req.session.loggedin = false;
+    req.session.username = "";
+    renderPage(res,"", false);
 }
 
 exports.postAuth = (req, res, next) => {

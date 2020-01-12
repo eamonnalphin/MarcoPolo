@@ -2,19 +2,8 @@ extends layout
 
 
 block content
-    a(href="/mainScreen") Home
     h1 Dashboard
     .container-fluid
-        .row
-            .col-6
-                form.form-group(action="/editEventScreen/createNew" method="POST")
-                    button(type="submit").far.fa-plus-square.fa-3x
-
-            .col-6
-                form.form-group(action="/loginScreen/signout" method="POST")
-                    button(type="submit").fas.fa-sign-out-alt.fa-3x.float-right
-
-
         table.table.table-light.table-striped
             thead
                 tr
@@ -38,7 +27,5 @@ block content
 
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js')
-    script(type='text/javascript', src='js/mdb.min.js')
-    script(src='/js/lineChart.js')
 
 

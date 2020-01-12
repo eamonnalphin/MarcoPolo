@@ -5,51 +5,111 @@ let appModel = require('../models/modelFile')
 
 exports.render = (req, res, next) => {
     let eventID = "";
+    try{
+        if(req.session.loggedin){
+            renderPage(req, res, false);
+        }else{
+            res.redirect('/loginScreen')
+        }
+    }catch(err){
+        res.redirect('/loginScreen');
+    }
 
-    renderPage(req, res, false);
+
 }
 
 
 exports.post = (req, res, next) => {
-    console.log("got a post");
+    console.log("Got a post.");
+    let eventID = "";
+    try{
+        if(req.session.loggedin){
+            renderPage(req, res, false);
+        }else{
+            res.redirect('/loginScreen')
+        }
+    }catch(err){
+        res.redirect('/loginScreen')
+    }
+
 }
 
 exports.updateEvent = (req, res, next) => {
     console.log("tyring to update event");
-    appModel.updateEvent(req.body.eventID, req.body.eventName, req.body.eventDescription, function(outcome){
-        renderPage(req,res,true);
-    })
+    let eventID = "";
+    try{
+        if(req.session.loggedin){
+            appModel.updateEvent(req.body.eventID, req.body.eventName, req.body.eventDescription, function(outcome){
+                renderPage(req,res,true);
+            })
+        }else{
+            res.redirect('/loginScreen')
+        }
+    }catch(err){
+        res.redirect('/loginScreen');
+    }
+
+
 }
 
 exports.createNew = (req, res, next) =>{
-    console.log("trying to create a new event");
-    renderPage(req,res,false)
+    try{
+        console.log("trying to create a new event");
+
+        if(req.session.loggedin){
+            renderPage(req, res, false);
+        }else{
+            res.redirect('/loginScreen')
+        }
+    }catch(err){
+        res.redirect('/loginScreen')
+    }
+
 }
 
 
 exports.editThisEventID = (req,res,next)=>{
     console.log("loading for: " + JSON.stringify(req.body));
-    renderPage(req,res, true)
+    try{
+        if(req.session.loggedin){
+            renderPage(req, res, true);
+        }else{
+            res.redirect('/loginScreen')
+        }
+    }catch(err){
+        res.redirect('/loginScreen');
+    }
+
 
 }
 
 exports.saveEvent = (req, res, next) =>{
-    console.log("trying to save an event: " + JSON.stringify(req.body))
-    let eventName = req.body.eventName;
-    let eventDescription = req.body.eventDescription;
-    let adminID = req.session.userID;
-    console.log("saving event for admin ID: " + adminID);
 
+    try{
+        if(req.session.loggedin){
+            console.log("trying to save an event: " + JSON.stringify(req.body))
+            let eventName = req.body.eventName;
+            let eventDescription = req.body.eventDescription;
+            let adminID = req.session.userID;
+            console.log("saving event for admin ID: " + adminID);
 
-    appModel.createANewEvent(eventName, eventDescription, adminID, function(outcome){
-        if(outcome){
-            console.log("created event!")
+            appModel.createANewEvent(eventName, eventDescription, adminID, function(outcome){
+                if(outcome){
+                    console.log("created event!")
+                }else{
+                    console.log("error creating event.")
+                }
+
+                res.redirect('/mainScreen')
+            })
         }else{
-            console.log("error creating event.")
+            res.redirect('/loginScreen')
         }
+    }catch(err){
+        res.redirect('/loginScreen');
+    }
 
-        res.redirect('/mainScreen')
-    })
+
 }
 
 
