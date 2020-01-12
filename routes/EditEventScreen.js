@@ -8,6 +8,7 @@ router.get('/', editEventScreenController.render);
 /*Handle a post*/
 router.post('/', editEventScreenController.render);
 
-router.post('/saveEvent', editEventScreenController.saveEvent)
+router.post('/saveEvent', editEventScreenController.saveEvent);
 
+router.post('/ID',editEventScreenController.editThisEventID);
 module.exports = router

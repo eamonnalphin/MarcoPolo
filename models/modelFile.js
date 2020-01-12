@@ -353,6 +353,7 @@ module.exports = {
     getsaltandpw:getEncryptedPasswordAndNewSalt,
     verifyLogin:verifyLogin,
     getID:getIDForUser,
+    getAllEvents:getAllEvents,
     createANewEvent:createNewEvent,
     getAllEventDays:getAllEventDays,
     getAllEventDayEntriesForDayID:getAllEventDayEntriesForDayID

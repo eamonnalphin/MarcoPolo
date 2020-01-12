@@ -25,13 +25,13 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="f0c6c574-e9ea-4f62-b8e8-02fa4aa4e267">
-        <schema name="heroku_46471de35bf643d" object-types="view, table" />
+        <schema name="heroku_46471de35bf643d" object-types="procedure, function, view, table" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f0c6c574-e9ea-4f62-b8e8-02fa4aa4e267">
-      <console name="Connection" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[/*
+      <console name="Connection" type="STANDARD" schema="heroku_46471de35bf643d" session="Main">/*
 CREATE TABLE ADMINLOGIN(
     ID int not null AUTO_INCREMENT,
     USERNAME varchar(255) not null,
@@ -83,7 +83,7 @@ CREATE TABLE EVENTDAYENTRY (
   WIFI varchar(255),
   EVENTDAYID int,
   FOREIGN KEY (EVENTDAYID) REFERENCES EVENTDAY(ID)
-);]]></console>
+);</console>
       <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[Select * from event;]]></console>
     </connection>
   </component>

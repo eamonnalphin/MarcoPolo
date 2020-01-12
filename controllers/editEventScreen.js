@@ -4,15 +4,20 @@ let appModel = require('../models/modelFile')
 
 
 exports.render = (req, res, next) => {
-
-    eventID = req.body.eventID;
-    eventID = 21;
+    let eventID = ""
     renderPage(req, res, eventID);
 }
 
 
 exports.post = (req, res, next) => {
     console.log("got a post");
+}
+
+
+exports.editThisEventID = (req,res,next)=>{
+    console.log("loading for this ID: " + req.body.eventID);
+    renderPage(req,res,req.body.eventID)
+
 }
 
 exports.saveEvent = (req, res, next) =>{

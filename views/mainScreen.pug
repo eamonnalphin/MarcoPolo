@@ -19,13 +19,26 @@ block content
             .col-3
                 i.fas.fa-sign-out-alt.fa-3x.float-right
 
-        ul.list-group
-            li.list-group-item.active Event 1
-                col-1.float-right Edit
-            each val in [2, 3, 4, 5, 6]
-                li.list-group-item Event #{val}
-                    .col-1.float-right Edit
-        .row.pb-3
+
+        table.table.table-light.table-striped
+            thead
+                tr
+
+                    th ID
+                    th Name
+                    th Description
+            tbody
+                each row in myEvents
+                    tr
+                        TD #{row.ID}
+                        TD #{row.NAME}
+                        TD #{row.DESCRIPTION}
+                        TD
+                            form(action="/editEventScreen/ID" method="POST")
+                                input(type="hidden" name="eventID" value=row.ID)
+                                button(type="submit").btn.btn-secondary view
+
+
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js')
     script(type='text/javascript', src='js/mdb.min.js')
