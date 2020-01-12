@@ -147,7 +147,66 @@ function verifyPassword(username, password,salt,callback){
 
 }
 
+/**
+ * Gets the id for the given username. 
+ * @param {*} username 
+ * @param {*} callback 
+ */
+function getIDForUser(userName,callback){
+    let getCommand = "SELECT ID FROM ADMINLOGIN WHERE USERNAME = ?"
+    let userID = ""
+
+    db.pool.getConnection((err, connection)=>{
+        connection.query(getCommand,[userName], (err,rows)=>{
+            if(!err){
+                try{
+                    console.log("Rows pulled:" + JSON.stringify(rows))
+                    userID = rows[0].ID
+                   
+                } catch (tryErr){
+                    console.log("Error try to pull rows" + tryerr)
+                }
+            }
+            
+            callback(userID);
+            
+        })
+
+    })
+}
+
+/**
+ * Creates a new event
+ * @param {*} eventName 
+ * @param {*} eventDescription 
+ * @param {*} adminID 
+ * @param {*} callback 
+ */
+function createNewEvent(eventName, eventDescription, adminID, callback) {
+    let insertCommand = "INSERT INTO EVENT (NAME, DESCRIPTION, ADMINID) VALUES (?, ?, ?)"
+    let outcome = false 
+
+    db.pool.getConnection((err, connection)=>{
+        connection.query(insertCommand, [eventName, eventDescription, adminID], (err,rows)=>{
+            if(!err){
+                console.log("Rows affected: " + JSON.stringify(rows))
+                outcome = true;
+
+            }else{
+                console.log("Error: " + err)
+                outcome = false
+            }
+
+            callback(outcome);
+
+        })
+    })
+
+}
+
 module.exports = {
     getsaltandpw:getEncryptedPasswordAndNewSalt,
-    verifyLogin:verifyLogin
+    verifyLogin:verifyLogin,
+    getID:getIDForUser,
+    createANewEvent:createNewEvent
 }

@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    form(action="editEventScreen/saveEvent", method="post").form-group
+        input(type="text" name="eventName" placeholder="Event Name").form-control
+        input(type="text" name="eventDescription" placeholder="Description").form-control
+        button(type="submit").btn.btn-primary submit
+
