@@ -149,6 +149,7 @@ function verifyPassword(username, password,salt,callback){
 }
 
 function registerNewUser(userName,password,callback){
+    //sql command
     let insertCommand = "INSERT INTO ADMINLOGIN (username, password, salt) VALUES (?, ?, ?);"
 
     let PS = getEncryptedPasswordAndNewSalt(password);

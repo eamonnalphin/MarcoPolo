@@ -20,9 +20,8 @@ html
       #navbarSupportedContent.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
           li.nav-item.active
-            a.nav-link(href='/mainScreen')
-              | Home
-              span.sr-only (current)
+            form.form-inline(action="/mainScreen")
+                button(type="submit").btn Home
           li.nav-item
             form.form-inline(action="/editEventScreen/createNew" method="POST")
               button(type="submit").btn New Event
