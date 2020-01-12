@@ -5,7 +5,7 @@ block content
     script(src="/js/editEventScreen.js")
     if viewExisting
         h1= title
-        h2 Event ID: #{eventID}
+        h2#eventIDText Event ID: #{eventID}
         p View the entries for an event and edit your event's information.
 
 
@@ -13,7 +13,7 @@ block content
             .col
                 .card.shadow.mb-4
                     .card-header.py-3
-                        h6.m-0.font-weight-bold.text-primary Bar Chart
+                        h6.m-0.font-weight-bold.text-primary #{title} Attendance
                     .card-body
                         .chart-bar
                             canvas#scatterChart
@@ -21,6 +21,7 @@ block content
         .row
             .col-lg-5
                 form(action="/editEventScreen/updateEvent", method="post").form-group
+                    h2 Edit event name and description:
                     input(type="text" name="eventName" value=eventName).form-control
                     input(type="text" name="eventDescription" value=eventDescription).form-control
                     button(type="submit").btn.btn-primary Update
@@ -58,6 +59,7 @@ block content
 
 
     if viewExisting
+        h2 View Event Days
         table.table.table-light.table-striped
             thead
                 tr

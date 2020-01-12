@@ -36,7 +36,7 @@ var config1 = new Chart.Scatter(ctxSc, {
     options: {
         title: {
             display: true,
-            text: 'Scatter Chart - Logarithmic X-Axis'
+            text: 'Scatter Chart'
         },
         scales: {
             xAxes: [{

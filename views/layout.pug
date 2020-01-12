@@ -14,15 +14,14 @@ html
 
   body
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
-      a.navbar-brand(href='#') MarcoPolo
+      a.navbar-brand(href='#')#brand MarcoPolo
       button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
       #navbarSupportedContent.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
           li.nav-item.active
-            a.nav-link(href='/mainScreen')
-              | Home
-              span.sr-only (current)
+            form.form-inline(action="/mainScreen")
+                button(type="submit").btn Home
           li.nav-item
             form.form-inline(action="/editEventScreen/createNew" method="POST")
               button(type="submit").btn New Event
