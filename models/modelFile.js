@@ -441,9 +441,9 @@ function addEventDay(eventID, eventStartTime, eventEndTime, eventDayNote, callba
     let insertCommand = "INSERT INTO EVENTDAY (EVENTID, TIMESTART, TIMEEND, NOTE) VALUES(?,?,?,?);"
 
     let outcome = false;
-
+    console.log(eventID, eventStartTime, eventEndTime, eventDayNote);
     db.pool.getConnection((err, connection)=>{
-        connection.query(insertCommand,[eventID, eventSTartTime, eventEndTime, eventDayNote], (err,rows)=>{
+        connection.query(insertCommand,[eventID, eventStartTime, eventEndTime, eventDayNote], (err,rows)=>{
             if(!err){
                 outcome = true
             }else{
@@ -453,6 +453,8 @@ function addEventDay(eventID, eventStartTime, eventEndTime, eventDayNote, callba
         })
 
     })
+
+    
 }
 
 
