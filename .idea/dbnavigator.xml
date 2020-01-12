@@ -84,7 +84,7 @@ CREATE TABLE EVENTDAYENTRY (
   EVENTDAYID int,
   FOREIGN KEY (EVENTDAYID) REFERENCES EVENTDAY(ID)
 );]]></console>
-      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[Select * from event]]></console>
+      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[Select * from event;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

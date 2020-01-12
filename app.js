@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var loginScreenRouter = require('./routes/loginScreen');
 var mainScreenRouter = require('./routes/mainScreen');
 var editEventScreenRouter = require('./routes/EditEventScreen');
+var viewDayDataRouter = require('./routes/viewDayData');
 let session = require('express-session');
 
 
@@ -34,6 +35,7 @@ app.use('/users', usersRouter);
 app.use('/loginScreen', loginScreenRouter);
 app.use('/mainScreen', mainScreenRouter);
 app.use('/editEventScreen', editEventScreenRouter);
+app.use('/viewDayData', viewDayDataRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

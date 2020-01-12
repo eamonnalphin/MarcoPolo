@@ -4,8 +4,10 @@ let appModel = require('../models/modelFile')
 
 
 exports.render = (req, res, next) => {
-    renderPage(req, res);
 
+    eventID = req.body.eventID;
+    eventID = 21;
+    renderPage(req, res, eventID);
 }
 
 
@@ -19,6 +21,7 @@ exports.saveEvent = (req, res, next) =>{
     let eventDescription = req.body.eventDescription
     let adminID = req.session.userID
     console.log("saving event for admin ID: " + adminID);
+
 
     appModel.createANewEvent(eventName, eventDescription, adminID, function(outcome){
         if(outcome){
@@ -40,12 +43,13 @@ exports.saveEvent = (req, res, next) =>{
  * Renders the page
  * @param res
  **/
-function renderPage(req, res) {
+function renderPage(req, res, eventID) {
 
-    appModel.getAllEvents(req.session.userID, function(theseRows){
+    appModel.getAllEventDays(eventID, function(theseDays){
         res.render('editEventScreen', {
             title: 'editEventScreen',
-            eventRows: theseRows
+            eventID: eventID,
+            eventsDaysRows: theseDays
         });
     })
 
