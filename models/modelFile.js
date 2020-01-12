@@ -427,8 +427,32 @@ function updateEvent(eventID, eventName, eventDescription, callback){
     })
 }
 
-function deleteEventWithID(eventID, callback){
-    let deleteCommand = "DELETE FROM "
+
+
+/**
+ * Adds an event day to the db.
+ * @param eventID
+ * @param eventStartTime
+ * @param eventEndTime
+ * @param eventDayNote
+ * @param callback
+ */
+function addEventDay(eventID, eventStartTime, eventEndTime, eventDayNote, callback){
+    let insertCommand = "INSERT INTO EVENTDAY (EVENTID, TIMESTART, TIMEEND, NOTE) VALUES(?,?,?,?);"
+
+    let outcome = false;
+
+    db.pool.getConnection((err, connection)=>{
+        connection.query(insertCommand,[eventID, eventSTartTime, eventEndTime, eventDayNote], (err,rows)=>{
+            if(!err){
+                outcome = true
+            }else{
+                console.log("error: " + err)
+            }
+            callback(outcome);
+        })
+
+    })
 }
 
 
@@ -440,5 +464,6 @@ module.exports = {
     getAllEventDays:getAllEventDays,
     getAllEventDayEntriesForDayID:getAllEventDayEntriesForDayID,
     updateEvent:updateEvent,
-    registerNewUser, registerNewUser
+    registerNewUser: registerNewUser,
+    addEventDay: addEventDay
 }

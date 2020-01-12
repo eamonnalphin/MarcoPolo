@@ -116,6 +116,12 @@ exports.deleteEvent = (req, res, next)=>{
 
 }
 
+exports.addEventDay = (req, res, next)=>{
+    appModel.addEventDay(req.body.EventID, req.body.startTime, req.body.endTime, req.body.Note, function(outcome){
+
+    })
+}
+
 /**
  * Renders the page
  * @param res

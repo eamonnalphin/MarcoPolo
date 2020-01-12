@@ -42,30 +42,6 @@ exports.postAuth = (req, res, next) => {
 }
 
 
-exports.register = (req,res,next) => {
-    appModel.registerNewUser(req.body.username, req.body.password, function(outcome){
-        if(outcome){
-            appModel.verifyLogin(req.body.username, req.body.password, function(outcome){
-                if(outcome){
-                    console.log("username and password match. Logging in.")
-                    appModel.getID(req.body.username, function(userID){
-                        req.session.userID = userID;
-                        req.session.loggedin = true;
-                        req.session.username = req.body.username;
-                        res.redirect('/mainScreen');
-                    })
-
-                }else{
-                    console.log("username and password don't match.")
-                    renderPage(res,"Incorrect username or password.", false)
-                }
-            });
-        }else{
-            console.log("error registering.")
-            renderPage(res, "Error registering.", false);
-        }
-    })
-}
 
 /**
  * Renders the page
