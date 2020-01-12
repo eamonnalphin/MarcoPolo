@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    h1 Register Screen
+
+    .container-fluid.mainContainer
+        .text-center
+            .row.d-flex.justify-content-center
+                .col-md-4
+                    .loginBox
+                        form(method = "POST")
+                            .form-group
+                                label(for="userEmail") Email Address
+                                input(type="email" name="username" placeholder="Enter Email").form-control.form-control-lg.text-center#userEmail
+                            .form-group
+                                label(for="userPassword") Password
+                                input(type="password" name="password" placeholder="Enter Password").form-control.form-control-lg.text-center#userPassword
+                            .form-group
+                                label(for="confirmPassword") Password
+                                input(type="password" name="password" placeholder="Re-Enter Password").form-control.form-control-lg.text-center#confirmPassword
+                            button(type="submit" formaction="/LoginScreen/Register").btn.btn-primary Login
+
+        .errorMessage #{errorMessage}

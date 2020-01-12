@@ -11,11 +11,6 @@ CREATE TABLE ADMINLOGIN(
     PRIMARY KEY (ID)
 );
 
-/*
-insert into ADMINLOGIN (PASSWORD,SALT,USERNAME)
-values ('3c3b237b526da4d5295059ee6549e4760bbe2cf4c8870b812a33f03b8c5dac10acc38237169771040d3be4435d3466b7a6c9815d304ce91ee4638d648b53858b','3268c18f44269202589137af9a7f2f95','eamonnalphin@gmail.com')
-;
-*/
 
 /*
 Contains the data for a specific event, like Burning Man

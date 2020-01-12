@@ -23,52 +23,50 @@ block content
                     input(type="text" name="eventDescription" value=eventDescription).form-control
                     button(type="submit").btn.btn-primary Update
     else
-        h1 Create New Event
-        p Give your event a name and description
+        .container-fluid.mainContainer
+            .text-center
+                .row.d-flex.justify-content-center
+                    .col-md-4
+                        h1 Create New Event
+                        p Give your event a name and description
 
-        .row
-            .col-lg-5
-                form(action="/editEventScreen/saveEvent", method="post").form-group
-                    input(type="text" name="eventName" placeholder="Event Name").form-control
-                    input(type="text" name="eventDescription" placeholder="Description").form-control
-                    button(type="submit").btn.btn-primary Save
+                .row.d-flex.justify-content-center
+                    .col-md-4
+                        form(action="/editEventScreen/saveEvent", method="post").form-group
+                            input(type="text" name="eventName" placeholder="Event Name").form-control
+                            input(type="text" name="eventDescription" placeholder="Description").form-control
+                            button(type="submit").btn.btn-primary Save
 
 
 
 
 
-
-    table.table.table-light.table-striped
-        thead
-            tr
-
-                th START TIME
-                th END TIME
-                th ATTENDEE COUNT
-                th NOTE
-
-        tbody
-            each row in eventsDaysRows
+    if viewExisting
+        table.table.table-light.table-striped
+            thead
                 tr
-                    TD.startTime #{row.startTime}
-                    TD #{row.endTime}
-                    TD.attendeeCount #{row.attendeeCount}
-                    TD #{row.note}
-                    TD
-                        form(action="/viewDayData/ID" method="POST")
-                            input(type="hidden" name="eventDayID" value=row.eventDayID)
-                            input(type="hidden" name="eventName" value=title)
-                            input(type="hidden" name="startTime" value=row.startTime)
-                            input(type="hidden" name="endTime" value=row.endTime)
-                            button(type="submit").btn.btn-secondary view
+
+                    th START TIME
+                    th END TIME
+                    th ATTENDEE COUNT
+                    th NOTE
+
+            tbody
+                each row in eventsDaysRows
+                    tr
+                        TD.startTime #{row.startTime}
+                        TD #{row.endTime}
+                        TD.attendeeCount #{row.attendeeCount}
+                        TD #{row.note}
+                        TD
+                            form(action="/viewDayData/ID" method="POST")
+                                input(type="hidden" name="eventDayID" value=row.eventDayID)
+                                input(type="hidden" name="eventName" value=title)
+                                input(type="hidden" name="startTime" value=row.startTime)
+                                input(type="hidden" name="endTime" value=row.endTime)
+                                button(type="submit").btn.btn-secondary view
 
 
-    .text-center
-        .row.d-flex.justify-content-center
-            .col-lg-5
-                form(action="/editEventScreen/deleteEvent", method="post").form-group
-                    input(type="hidden" name="eventID" value=eventID).form-control
-                    button(type="submit").btn.btn-danger Delete Event
 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js")
     script(src='/js/lineChart.js')
