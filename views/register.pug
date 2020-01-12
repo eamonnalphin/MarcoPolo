@@ -1,6 +1,7 @@
 extends layout
 
 block content
+    script(src="/js/register.js")
     h1 Register Screen
 
     .container-fluid.mainContainer
@@ -8,16 +9,16 @@ block content
             .row.d-flex.justify-content-center
                 .col-md-4
                     .loginBox
-                        form(method = "POST")
+                        form(method = "POST" autocomplete="OFF")
                             .form-group
                                 label(for="userEmail") Email Address
-                                input(type="email" name="username" placeholder="Enter Email").form-control.form-control-lg.text-center#userEmail
+                                input(type="email" name="username" placeholder="Enter Email" autocomplete="off").form-control.form-control-lg.text-center#userEmail
                             .form-group
                                 label(for="userPassword") Password
                                 input(type="password" name="password" placeholder="Enter Password").form-control.form-control-lg.text-center#userPassword
                             .form-group
                                 label(for="confirmPassword") Password
-                                input(type="password" name="password" placeholder="Re-Enter Password").form-control.form-control-lg.text-center#confirmPassword
-                            button(type="submit" formaction="/LoginScreen/Register").btn.btn-primary Login
+                                input(type="password" name="password" placeholder="Re-Enter Password" autocomplete="off").form-control.form-control-lg.text-center#confirmPassword
+                            button(type="submit" formaction="/LoginScreen/Register").btn.btn-primary#registerBtn Register
 
-        .errorMessage #{errorMessage}
+                        #errorMessage.errorMessage #{errorMessage}

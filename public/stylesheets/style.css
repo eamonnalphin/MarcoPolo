@@ -18,3 +18,8 @@ a {
   font-size: 20px;
 }
 
+.errorMessage{
+  font-size: 25px;
+  color: red;
+}
+

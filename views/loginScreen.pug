@@ -16,6 +16,7 @@ block content
                                 label(for="userPassword") Password
                                 input(type="password" name="password" placeholder="Enter Password").form-control.form-control-lg.text-center#userPassword
                             button(type="submit" formaction="/LoginScreen/auth").btn.btn-primary Login
-                            //button(type="submit" formaction="/LoginScreen/Register").btn.btn-success Register
+                            .form-group
+                            button(type="submit" formaction="/register").btn.btn-success Need an Account? Register!
 
         .errorMessage #{errorMessage}
