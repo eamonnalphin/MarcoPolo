@@ -1,0 +1,96 @@
+#!/bin/bash
+
+OUTPUT="${OUTPUT:-probes.txt}"
+CHANNEL_HOP="${CHANNEL_HOP:-0}"
+DATESTARTED=$(date "+%Y-%m-%d__%H:%M:%S")
+CURRENTDAY=$(date "+%Y-%m-%d")
+USEFILE="$DATESTARTED.sql"
+SESSION_ID="$1"
+IFACE="$2"
+USAGE="sniffer sessionid interface authtoken"
+
+#DB Credentials
+DB_HOST=us-cdbr-iron-east-05.cleardb.net
+DB_USER='b8ea3e7fbe048f'
+DB_PASS='7237c216'
+DB_DATABASE=heroku_46471de35bf643d
+
+# channel hop every 2 seconds
+channel_hop() {
+
+  IEEE80211bg="1 2 3 4 5 6 7 8 9 10 11"
+  IEEE80211bg_intl="$IEEE80211b 12 13 14"
+  IEEE80211a="36 40 44 48 52 56 60 64 149 153 157 161"
+  IEEE80211bga="$IEEE80211bg $IEEE80211a"
+  IEEE80211bga_intl="$IEEE80211bg_intl $IEEE80211a"
+
+  while true ; do
+    for CHAN in $IEEE80211bg ; do
+      # echo "switching $IFACE to channel $CHAN"
+      sudo iwconfig $IFACE channel $CHAN
+      sleep 2
+    done
+  done
+}
+
+if ! [ -x "$(command -v gawk)" ]; then
+  echo 'gawk (GNU awk) is not installed. Please install gawk.' >&2
+  exit 1
+fi
+
+if [ -z "$SESSION_ID" ] ; then
+  echo "Specify the day!"
+  echo $USAGE
+  exit 1
+fi
+
+if [ -z "$IFACE" ] ; then
+  echo "No interface set. Using en0"
+  IFACE="en0"
+fi
+
+if [ "$CHANNEL_HOP" -eq 1 ] ; then
+  # channel hop in the background
+  channel_hop &
+fi
+
+
+
+echo "Listening for packets now!"
+
+
+# filter with awk, then use sed to convert tabs to spaces and remove front and back quotes around SSID
+sudo tcpdump -l -I -i "$IFACE" -e -s 256 type mgt subtype probe-req | awk -f parse-tcpdump.awk > $USEFILE
+
+sed -i "" "s/REPLACETHISLOL/$SESSION_ID/g" $USEFILE
+
+sed -i "" "s/REPLDATE/$CURRENTDAY/g" $USEFILE
+
+INSERTS=$(<$USEFILE)
+
+echo "Completed listening for packets. Generating SQL:"
+
+cat $USEFILE
+
+echo "SQL Generated. Running mysql with params in 5 seconds"
+
+sleep 1
+echo -n "." 
+sleep 1
+echo -n "." 
+sleep 1
+echo -n "." 
+sleep 1
+echo -n "." 
+sleep 1
+echo  "." 
+
+mysql -u "$DB_USER" -p"$DB_PASS" -h "$DB_HOST" -e "USE $DB_DATABASE; $INSERTS"
+
+echo "completed".
+
+
+
+
+
+
