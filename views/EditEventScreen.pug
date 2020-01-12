@@ -21,6 +21,7 @@ block content
         .row
             .col-lg-5
                 form(action="/editEventScreen/updateEvent", method="post").form-group
+                    h2 Edit event name and description:
                     input(type="text" name="eventName" value=eventName).form-control
                     input(type="text" name="eventDescription" value=eventDescription).form-control
                     button(type="submit").btn.btn-primary Update
@@ -57,6 +58,7 @@ block content
 
 
     if viewExisting
+        h2 View Event Days
         table.table.table-light.table-striped
             thead
                 tr
