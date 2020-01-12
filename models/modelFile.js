@@ -1,25 +1,6 @@
 let db = require('../util/database');
 let crypto = require('crypto')
 
-class newModel {
-
-    constructor(thisProp) {
-        this._thisProp = thisProp
-    }
-
-    get thisProp() {
-        return this._thisProp;
-    }
-
-    set thisProp(newValue) {
-        this._thisProp = newValue
-    }
-
-    toString() {
-        return "thisProp: " + this._thisProp;
-    }
-
-}
 
 
 /**
@@ -84,9 +65,9 @@ function verifyLogin(username, password, callback){
  * @param callback
  */
 function verifyUsername(username, callback){
-    console.log("Verifying username");
+    console.log("Verifying username: " + username);
     username = username.trim();//remove all whitespace
-    let checkCommand = "SELECT USERNAME, SALT FROM BLOG_ADMIN WHERE USERNAME = ? LIMIT 1";
+    let checkCommand = "SELECT USERNAME, SALT FROM ADMINLOGIN WHERE USERNAME = ? LIMIT 1";
     let outcome = false;
     let salt = "";
 
@@ -137,7 +118,7 @@ function verifyPassword(username, password,salt,callback){
     ).toString('hex');
 
     //2. Check if this password matches what's saved.
-    let checkCommand = "SELECT PASSWORD FROM BLOG_ADMIN WHERE USERNAME = ? AND PASSWORD = ? LIMIT 1;";
+    let checkCommand = "SELECT PASSWORD FROM ADMINLOGIN WHERE USERNAME = ? AND PASSWORD = ? LIMIT 1;";
     let outcome = false;
     db.pool.getConnection((err,connection)=>{
         connection.query(checkCommand, [username, encryptedPassword], (err, results) => {
@@ -167,5 +148,6 @@ function verifyPassword(username, password,salt,callback){
 }
 
 module.exports = {
+    getsaltandpw:getEncryptedPasswordAndNewSalt,
     verifyLogin:verifyLogin
 }

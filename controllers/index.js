@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var appModel = require('../models/modelFile');
 
 exports.render = (req, res, next) => {
     renderPage(res);
