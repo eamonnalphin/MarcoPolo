@@ -204,9 +204,42 @@ function createNewEvent(eventName, eventDescription, adminID, callback) {
 
 }
 
+
+/**
+ * Get all events for this admin ID
+ * @param adminID
+ * @param callback
+ */
+function getAllEvents(adminID, callback){
+    let getCommand = "SELECT ID, NAME, DESCRIPTION FROM EVENT WHERE ADMINID = ?"
+
+    let outcome = false
+    let theseRows = []
+
+    console.log("ADMINID: " + adminID);
+    db.pool.getConnection((err, connection)=>{
+        connection.query(getCommand, [adminID], (err, rows)=>{
+            if(!err){
+                console.log("rows: " + JSON.stringify(rows));
+                theseRows = rows;
+            }else{
+                console.log("Error: " + err);
+                outcome = false;
+            }
+
+            callback(theseRows);
+
+        })
+    })
+
+
+}
+
+
 module.exports = {
     getsaltandpw:getEncryptedPasswordAndNewSalt,
     verifyLogin:verifyLogin,
     getID:getIDForUser,
-    createANewEvent:createNewEvent
+    createANewEvent:createNewEvent,
+    getAllEvents:getAllEvents
 }

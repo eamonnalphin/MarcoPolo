@@ -2,10 +2,23 @@ extends layout
 
 block content
     h1= title
-    p Welcome to #{title}
+    p View and create events
 
     form(action="editEventScreen/saveEvent", method="post").form-group
         input(type="text" name="eventName" placeholder="Event Name").form-control
         input(type="text" name="eventDescription" placeholder="Description").form-control
         button(type="submit").btn.btn-primary submit
+
+
+    table.table.table-light.table-striped
+        thead
+            tr
+                th EVENT NAME
+                th EVENT DESCRIPTION
+        tbody
+            each row in eventRows
+                tr
+                    td #{row.NAME}
+                    TD #{row.DESCRIPTION}
+
 

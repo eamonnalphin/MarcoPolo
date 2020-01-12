@@ -4,7 +4,8 @@ let appModel = require('../models/modelFile')
 
 
 exports.render = (req, res, next) => {
-    renderPage(res);
+    renderPage(req, res);
+
 }
 
 
@@ -26,7 +27,7 @@ exports.saveEvent = (req, res, next) =>{
             console.log("error creating event.")
         }
 
-        renderPage(res);
+        renderPage(req,res);
     })
 
 
@@ -39,8 +40,13 @@ exports.saveEvent = (req, res, next) =>{
  * Renders the page
  * @param res
  **/
-function renderPage(res) {
-    res.render('editEventScreen', {
-        title: 'editEventScreen'
-    });
+function renderPage(req, res) {
+
+    appModel.getAllEvents(req.session.userID, function(theseRows){
+        res.render('editEventScreen', {
+            title: 'editEventScreen',
+            eventRows: theseRows
+        });
+    })
+
 }
