@@ -8,13 +8,14 @@ block content
             .row.d-flex.justify-content-center
                 .col-md-4
                     .loginBox
-                        form(action="/LoginScreen/auth" method = "POST")
+                        form(method = "POST")
                             .form-group
                                 label(for="userEmail") Email Address
                                 input(type="email" name="username" placeholder="Enter Email").form-control.form-control-lg.text-center#userEmail
                             .form-group
                                 label(for="userPassword") Password
                                 input(type="password" name="password" placeholder="Enter Password").form-control.form-control-lg.text-center#userPassword
-                            button(type="submit").btn.btn-primary Login
+                            button(type="submit" formaction="/LoginScreen/auth").btn.btn-primary Login
+                            //button(type="submit" formaction="/LoginScreen/Register").btn.btn-success Register
 
         .errorMessage #{errorMessage}

@@ -148,6 +148,27 @@ function verifyPassword(username, password,salt,callback){
 
 }
 
+function registerNewUser(userName,password,callback){
+    let insertCommand = "INSERT INTO ADMINLOGIN (username, password, salt) VALUES (?, ?, ?);"
+
+    let PS = getEncryptedPasswordAndNewSalt(password);
+    let outcome = false;
+
+    db.pool.getConnection((err, connection)=> {
+        connection.query(insertCommand, [userName, PS.encryptedPassword, PS.salt], (err, rows) => {
+            if (!err) {
+                console.log("success.")
+                outcome = true;
+            } else {
+                console.log("error: " + err)
+            }
+            callback(outcome)
+
+        })
+    })
+
+}
+
 /**
  * Gets the id for the given username. 
  * @param {*} username 
@@ -417,5 +438,6 @@ module.exports = {
     createANewEvent:createNewEvent,
     getAllEventDays:getAllEventDays,
     getAllEventDayEntriesForDayID:getAllEventDayEntriesForDayID,
-    updateEvent:updateEvent
+    updateEvent:updateEvent,
+    registerNewUser, registerNewUser
 }
