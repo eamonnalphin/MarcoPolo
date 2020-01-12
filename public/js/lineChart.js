@@ -112,14 +112,10 @@ var config1 = new Chart.Scatter(ctxSc, {
             xAxes: [{
                 type: 'linear',
                 position: 'bottom',
-                ticks: {1: 2
-                    // userCallback: function (tick) {
-                    //     var remain = tick / (Math.pow(10, Math.floor(Chart.helpers.log10(tick))));
-                    //     if (remain === 1 || remain === 2 || remain === 5) {
-                    //         return tick.toString() + 'Hz';
-                    //     }
-                    //     return '';
-                    // },
+                ticks: {
+                    maxTicksLimit: 25,
+                    max: 100,
+                    fontFamily: "sans-serif"
                 },
                 scaleLabel: {
                     labelString: 'Time',
@@ -129,9 +125,9 @@ var config1 = new Chart.Scatter(ctxSc, {
             yAxes: [{
                 type: 'linear',
                 ticks: {
-                    userCallback: function (tick) {
-                        return tick.toString() + 'dB';
-                    }
+                    beginAtZero: true,
+                    maxTicksLimit: 15,
+                    stepSize: 50
                 },
                 scaleLabel: {
                     labelString: 'Population',
