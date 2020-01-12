@@ -3,3 +3,21 @@ extends layout
 block content
     h1= title
     p Welcome to #{title}
+    extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  .row
+   .row.pl-4
+   .card.shadow.mb-4
+    .card-header.py-3
+      h6.m-0.font-weight-bold.text-primary Attendance for Event 0
+    .card-body
+      .chart-bar
+        canvas#myBarChart
+      //- hr
+      //- |                     Styling for the bar chart can be found in the 
+      //- code /js/demo/chart-bar-demo.js
+      //- |  file.
+
