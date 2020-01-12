@@ -5,6 +5,16 @@ block content
     h2 Event ID: #{eventID}
     p View the entries for an event and edit your event's information.
 
+    .row
+        .col
+            .card.shadow.mb-4
+                .card-header.py-3
+                    h6.m-0.font-weight-bold.text-primary Bar Chart
+                .card-body
+                    .chart-bar
+                        canvas#scatterChart
+
+
     form(action="editEventScreen/saveEvent", method="post").form-group
         input(type="text" name="eventName" placeholder="Event Name").form-control
         input(type="text" name="eventDescription" placeholder="Description").form-control
@@ -23,9 +33,9 @@ block content
         tbody
             each row in eventsDaysRows
                 tr
-                    TD #{row.startTime}
+                    TD.startTime #{row.startTime}
                     TD #{row.endTime}
-                    TD #{row.attendeeCount}
+                    TD.attendeeCount #{row.attendeeCount}
                     TD #{row.note}
                     TD
                         form(action="/viewDayData/ID" method="POST")
@@ -36,4 +46,5 @@ block content
                             button(type="submit").btn.btn-secondary view
 
 
-
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js")
+    script(src='/js/lineChart.js')

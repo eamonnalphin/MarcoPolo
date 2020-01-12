@@ -84,14 +84,29 @@ CREATE TABLE EVENTDAYENTRY (
   EVENTDAYID int,
   FOREIGN KEY (EVENTDAYID) REFERENCES EVENTDAY(ID)
 );]]></console>
-      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[/*
+      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[UPDATE eventday
+SET TIMESTART = '2020-01-11 08:00:00',
+TIMEEND = '2020-01-11 23:59:00'
+WHERE 
+ID = 1;
+
+UPDATE eventday
+SET TIMESTART = '2020-01-12 08:00:00',
+TIMEEND = '2020-01-13 23:59:00'
+WHERE 
+ID = 11;
+
+
+SELECT * FROM eventday;
+
+/*
 SELECT distinct MAC FROM eventdayentry where eventdayID = 1;
 
 there are 27 unique mac addresses for QDS hackathon day 1
 
 /*
 SELECT ID, ATTENDEES, TIMESTART, TIMEEND, NOTE FROM EVENTDAY WHERE EVENTID = 21
-*/
+
 
 SELECT DISTINCT TIMESTAMP, MAC FROM EVENTDAYENTRY WHERE EVENTDAYID = 1
 

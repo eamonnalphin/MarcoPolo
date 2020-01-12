@@ -4,7 +4,8 @@ let appModel = require('../models/modelFile')
 
 
 exports.render = (req, res, next) => {
-    let eventID = ""
+    let eventID = "";
+
     renderPage(req, res, eventID);
 }
 
@@ -12,6 +13,9 @@ exports.render = (req, res, next) => {
 exports.post = (req, res, next) => {
     console.log("got a post");
 }
+
+
+exports.get
 
 
 exports.editThisEventID = (req,res,next)=>{
@@ -37,10 +41,6 @@ exports.saveEvent = (req, res, next) =>{
 
         renderPage(req,res);
     })
-
-
-    
-
 }
 
 

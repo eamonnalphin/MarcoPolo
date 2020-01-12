@@ -1,3 +1,4 @@
+import moment from 'moment'
 var ctx = document.getElementById("scatterChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'scatter',
@@ -5,7 +6,7 @@ var myChart = new Chart(ctx, {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            data: [120, 109, 300, 50, 200, 30],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',

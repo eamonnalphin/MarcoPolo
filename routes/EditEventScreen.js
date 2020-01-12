@@ -5,6 +5,7 @@ var router = express.Router();
 /*Get this page*/
 router.get('/', editEventScreenController.render);
 
+
 /*Handle a post*/
 router.post('/', editEventScreenController.render);
 
