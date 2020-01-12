@@ -2,17 +2,17 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
     <export-instructions>
       <create-header value="true" />
-      <quote-values-containing-separator value="true" />
+      <quote-values-containing-separator value="false" />
       <quote-all-values value="false" />
       <value-separator value="" />
-      <file-name value="" />
-      <file-location value="" />
+      <file-name value="EVENTDAY, EVENTDAYENTRY.xls" />
+      <file-location value="$PROJECT_DIR$/../.." />
       <scope value="GLOBAL" />
       <destination value="FILE" />
       <format value="EXCEL" />
@@ -25,14 +25,14 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="f0c6c574-e9ea-4f62-b8e8-02fa4aa4e267">
-        <schema name="heroku_46471de35bf643d" object-types="index, column, table, view, function, procedure" />
+        <schema name="heroku_46471de35bf643d" object-types="index, procedure, constraint, column, function, dataset trigger, view, table" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f0c6c574-e9ea-4f62-b8e8-02fa4aa4e267">
-      <console name="Connection" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[/*
-CREATE TABLE ADMINLOGIN(
+      <console name="Connection" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[select * from adminlogin;]]></console>
+      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[CREATE TABLE ADMINLOGIN(
     ID int not null AUTO_INCREMENT,
     USERNAME varchar(255) not null,
     PASSWORD varchar(255) not null,
@@ -41,22 +41,41 @@ CREATE TABLE ADMINLOGIN(
 );
 
 
-
-
-
-
-insert into ADMINLOGIN (
-    `PASSWORD`,
-    SALT,
-    USERNAME)
-values ('3c3b237b526da4d5295059ee6549e4760bbe2cf4c8870b812a33f03b8c5dac10acc38237169771040d3be4435d3466b7a6c9815d304ce91ee4638d648b53858b','3268c18f44269202589137af9a7f2f95','eamonnalphin@gmail.com')
-;
-
+/*
+Contains the data for a specific event, like Burning Man
 */
-SELECT * FROM ADMINLOGIN;
+CREATE TABLE EVENT (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  NAME varchar(255),
+  DESCRIPTION varchar(255),
+  ADMINID int,
+  FOREIGN KEY (ADMINID) REFERENCES ADMINLOGIN(ID) ON DELETE CASCADE
+);
 
+/*
+Contains data for a day of the event, like Day 1 of burning man
+*/
+CREATE TABLE EVENTDAY (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  EVENTID int,
+  ATTENDEES int,
+  TIMESTART datetime,
+  TIMEEND datetime,
+  NOTE VARCHAR(255),
+  FOREIGN KEY (EVENTID) REFERENCES EVENT(ID) ON DELETE CASCADE
+);
 
-/*SELECT USERNAME, SALT FROM USERS WHERE USERNAME = 'admin@gmail.com' LIMIT 1*/]]></console>
+/*
+Contains entries for a day of an event, like 01:10:20:30:30
+*/
+CREATE TABLE EVENTDAYENTRY (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  TIMESTAMP datetime,
+  MAC varchar(17),
+  WIFI varchar(255),
+  EVENTDAYID int,
+  FOREIGN KEY (EVENTDAYID) REFERENCES EVENTDAY(ID) ON DELETE CASCADE
+);]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

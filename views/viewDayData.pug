@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    h1 #{eventName} #{startTime} - #{endTime}
+
+    p DATAID: #{eventDayID}
+    p Use this to collect data for this event day. 
+
+    p Unique Visitors: #TODO 
+
+
+    table.table.table-light.table-striped
+        thead
+            tr
+                th #
+                th TIMESTAMP
+                th MAC
+                th WIFI
+
+        tbody
+            each row,i in eventsDayEntryRows
+                tr
+                    TD #{i+1}
+                    TD #{row.timestamp}
+                    TD #{row.MAC}
+                    TD #{row.WIFI}
+
+
+

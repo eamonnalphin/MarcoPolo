@@ -1,8 +1,32 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: rgba(45,45,45,1);
+  background-image: URL('../images/background-future.jpg');
+  color: white;
 }
 
 a {
   color: #00B7FF;
+}
+
+#userEmail{
+  font-size: 20px;
+}
+
+#userPassword{
+  font-size: 20px;
+}
+
+.errorMessage{
+  font-size: 25px;
+  color: red;
+}
+
+#brand {
+  font-weight: bold;
+}
+
+#eventIDText {
+  font-size: 14pt;
 }

@@ -1,5 +1,28 @@
 extends layout
 
+
 block content
-    h1= title
-    p Welcome to #{title}
+    h1 Dashboard
+    .container-fluid
+        table.table.table-light.table-striped
+            thead
+                tr
+
+                    th ID
+                    th Event Name
+                    th Description
+                    th
+            tbody
+                each row in myEvents
+                    tr
+                        TD #{row.ID}
+                        TD #{row.NAME}
+                        TD #{row.DESCRIPTION}
+                        TD
+                            form(action="/editEventScreen/ID" method="POST")
+                                input(type="hidden" name="eventID" value=row.ID)
+                                input(type="hidden" name="eventName" value=row.NAME)
+                                input(type="hidden" name="eventDescription" value=row.DESCRIPTION)
+                                button(type="submit").btn.btn-secondary view
+
+

@@ -1,0 +1,91 @@
+extends layout
+
+block content
+    link(rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css")
+    script(src="/js/editEventScreen.js")
+    if viewExisting
+        h1= title
+        h2#eventIDText Event ID: #{eventID}
+        p View the entries for an event and edit your event's information.
+
+
+        .row
+            .col
+                .card.shadow.mb-4
+                    .card-header.py-3
+                        h6.m-0.font-weight-bold.text-primary #{title} Attendance
+                    .card-body
+                        .chart-bar
+                            canvas#scatterChart
+
+        .row
+            .col-lg-5
+                form(action="/editEventScreen/updateEvent", method="post").form-group
+                    h2 Edit event name and description:
+                    input(type="text" name="eventName" value=eventName).form-control
+                    input(type="text" name="eventDescription" value=eventDescription).form-control
+                    button(type="submit").btn.btn-primary Update
+        br
+        .row
+            .col
+                h2 Create New Event Day
+                form(action="/editEventScreen/AddEventDay" method="POST").form-group
+                    input(type="hidden" name="EventID" value=eventID)
+                    input(type="datetime-local" name="startTime" placeholder="Start Time").form-control#newStartTime
+                    input(type="datetime-local" name="endTime" placeholder="End Time").form-control#newEndTime
+                    input(type="text" name="Note" placeholder="Note").form-control
+                    button(type="submit").btn.btn-primary Add
+
+    else
+        .container-fluid.mainContainer
+            .text-center
+                .row.d-flex.justify-content-center
+                    .col-md-4
+                        h1 Create New Event
+                        p Give your event a name and description
+
+                .row.d-flex.justify-content-center
+                    .col-md-4
+                        form(action="/editEventScreen/saveEvent", method="post").form-group
+                            input(type="text" name="eventName" placeholder="Event Name").form-control
+                            input(type="text" name="eventDescription" placeholder="Description").form-control
+                            button(type="submit").btn.btn-primary Save
+
+
+
+
+
+
+
+
+    if viewExisting
+        h2 View Event Days
+        table.table.table-light.table-striped
+            thead
+                tr
+
+                    th START TIME
+                    th END TIME
+                    th ATTENDEE COUNT
+                    th NOTE
+
+            tbody
+                each row in eventsDaysRows
+                    tr
+                        TD.startTime #{row.startTime}
+                        TD #{row.endTime}
+                        TD.attendeeCount #{row.attendeeCount}
+                        TD #{row.note}
+                        TD
+                            form(action="/viewDayData/ID" method="POST")
+                                input(type="hidden" name="eventDayID" value=row.eventDayID)
+                                input(type="hidden" name="eventName" value=title)
+                                input(type="hidden" name="startTime" value=row.startTime)
+                                input(type="hidden" name="endTime" value=row.endTime)
+                                button(type="submit").btn.btn-secondary view
+
+
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js")
+    script(src='/js/lineChart.js')
+    script(src="https://unpkg.com/js-datepicker")
