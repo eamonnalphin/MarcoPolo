@@ -34,8 +34,6 @@ exports.postAuth = (req, res, next) => {
             }
         });
     }
-
-
 }
 
 
