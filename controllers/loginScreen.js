@@ -62,7 +62,7 @@ exports.register = (req,res,next) => {
             });
         }else{
             console.log("error registering.")
-            res.redirect("/loginScreen")
+            renderPage(res, "Error registering.", false);
         }
     })
 }
