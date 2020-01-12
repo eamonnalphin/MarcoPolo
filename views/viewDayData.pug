@@ -8,13 +8,15 @@ block content
     table.table.table-light.table-striped
         thead
             tr
+                th #
                 th TIMESTAMP
                 th MAC
                 th WIFI
 
         tbody
-            each row in eventsDayEntryRows
+            each row,i in eventsDayEntryRows
                 tr
+                    TD #{i+1}
                     TD #{row.timestamp}
                     TD #{row.MAC}
                     TD #{row.WIFI}

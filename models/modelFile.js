@@ -242,7 +242,6 @@ function getAllEvents(adminID, callback){
  */
 function getAllRawEventsDays(eventID, callback){
 
-
     let getCommand = "SELECT\n" +
         "  EVENTDAY.ID AS ID,\n" +
         "  COUNT(DISTINCT EVENTDAYENTRY.MAC) AS ATTENDEES,\n" +
@@ -337,7 +336,7 @@ function getAttendanceForEventDay(eventDayID,callback){
  * @param callback
  */
 function getAllRawEventDayEntriesForDayID(eventDayID, callback){
-    let getCommand = "SELECT TIMESTAMP, MAC, WIFI FROM EVENTDAYENTRY WHERE EVENTDAYID = ?"
+    let getCommand = "SELECT distinct TIMESTAMP, MAC, WIFI FROM EVENTDAYENTRY WHERE EVENTDAYID = ?"
 
     let theseEntries = []
 
@@ -384,7 +383,6 @@ function getAllEventDayEntriesForDayID(eventDayID, callback){
 
 
 module.exports = {
-    getsaltandpw:getEncryptedPasswordAndNewSalt,
     verifyLogin:verifyLogin,
     getID:getIDForUser,
     getAllEvents:getAllEvents,
