@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    link(rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css")
+    script(src="/js/editEventScreen.js")
     if viewExisting
         h1= title
         h2 Event ID: #{eventID}
@@ -22,6 +24,16 @@ block content
                     input(type="text" name="eventName" value=eventName).form-control
                     input(type="text" name="eventDescription" value=eventDescription).form-control
                     button(type="submit").btn.btn-primary Update
+        br
+        .row
+            .col
+                h2 Create New Event Day
+                form(action="/editEventScreen/AddEventDay" method="POST").form-group
+                    input(type="DateTime" name="startTime" placeholder="Start Time").form-control#newStartTime
+                    input(type="DateTime" name="endTime" placeholder="End Time").form-control#newEndTime
+                    input(type="text" name="note" placeholder="Note").form-control
+                    button(type="submit").btn.btn-primary Add
+
     else
         .container-fluid.mainContainer
             .text-center
@@ -36,6 +48,9 @@ block content
                             input(type="text" name="eventName" placeholder="Event Name").form-control
                             input(type="text" name="eventDescription" placeholder="Description").form-control
                             button(type="submit").btn.btn-primary Save
+
+
+
 
 
 
@@ -70,3 +85,4 @@ block content
 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js")
     script(src='/js/lineChart.js')
+    script(src="https://unpkg.com/js-datepicker")
