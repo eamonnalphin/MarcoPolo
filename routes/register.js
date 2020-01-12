@@ -8,4 +8,6 @@ router.get('/', registerController.render);
 /*Handle a post*/
 router.post('/', registerController.render);
 
+router.post('/newUser', registerController.registerNewUser);
+
 module.exports = router

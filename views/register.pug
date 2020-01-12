@@ -18,7 +18,7 @@ block content
                                 input(type="password" name="password" placeholder="Enter Password").form-control.form-control-lg.text-center#userPassword
                             .form-group
                                 label(for="confirmPassword") Password
-                                input(type="password" name="password" placeholder="Re-Enter Password" autocomplete="off").form-control.form-control-lg.text-center#confirmPassword
-                            button(type="submit" formaction="/LoginScreen/Register").btn.btn-primary#registerBtn Register
+                                input(type="password" name="retypedPassword" placeholder="Re-Enter Password" autocomplete="off").form-control.form-control-lg.text-center#confirmPassword
+                            button(type="submit" formaction="/register/newUser").btn.btn-primary#registerBtn Register
 
                         #errorMessage.errorMessage #{errorMessage}
