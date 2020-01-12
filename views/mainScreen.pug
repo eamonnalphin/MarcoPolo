@@ -11,6 +11,7 @@ block content
                     th ID
                     th Event Name
                     th Description
+                    th
             tbody
                 each row in myEvents
                     tr
@@ -23,9 +24,5 @@ block content
                                 input(type="hidden" name="eventName" value=row.NAME)
                                 input(type="hidden" name="eventDescription" value=row.DESCRIPTION)
                                 button(type="submit").btn.btn-secondary view
-
-
-
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js')
 
 

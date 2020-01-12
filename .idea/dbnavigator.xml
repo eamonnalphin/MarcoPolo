@@ -8,11 +8,11 @@
   <component name="DBNavigator.Project.DataExportManager">
     <export-instructions>
       <create-header value="true" />
-      <quote-values-containing-separator value="true" />
+      <quote-values-containing-separator value="false" />
       <quote-all-values value="false" />
       <value-separator value="" />
-      <file-name value="" />
-      <file-location value="" />
+      <file-name value="EVENTDAY, EVENTDAYENTRY.xls" />
+      <file-location value="$PROJECT_DIR$/../.." />
       <scope value="GLOBAL" />
       <destination value="FILE" />
       <format value="EXCEL" />
@@ -25,7 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="f0c6c574-e9ea-4f62-b8e8-02fa4aa4e267">
-        <schema name="heroku_46471de35bf643d" object-types="procedure, column, function, view, table" />
+        <schema name="heroku_46471de35bf643d" object-types="index, procedure, constraint, column, function, dataset trigger, view, table" />
       </connection>
     </loaded-nodes>
   </component>
@@ -84,44 +84,50 @@ CREATE TABLE EVENTDAYENTRY (
   EVENTDAYID int,
   FOREIGN KEY (EVENTDAYID) REFERENCES EVENTDAY(ID)
 );]]></console>
-      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[UPDATE eventday
-SET TIMESTART = '2020-01-11 08:00:00',
-TIMEEND = '2020-01-11 23:59:00'
-WHERE 
-ID = 1;
-
-UPDATE eventday
-SET TIMESTART = '2020-01-12 08:00:00',
-TIMEEND = '2020-01-13 23:59:00'
-WHERE 
-ID = 11;
-
-
-SELECT * FROM eventday;
+      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[CREATE TABLE ADMINLOGIN(
+    ID int not null AUTO_INCREMENT,
+    USERNAME varchar(255) not null,
+    PASSWORD varchar(255) not null,
+    SALT varchar(255) not null,
+    PRIMARY KEY (ID)
+);
 
 /*
-SELECT distinct MAC FROM eventdayentry where eventdayID = 1;
-
-there are 27 unique mac addresses for QDS hackathon day 1
-
-/*
-SELECT ID, ATTENDEES, TIMESTART, TIMEEND, NOTE FROM EVENTDAY WHERE EVENTID = 21
-
-
-SELECT DISTINCT TIMESTAMP, MAC FROM EVENTDAYENTRY WHERE EVENTDAYID = 1
+insert into ADMINLOGIN (PASSWORD,SALT,USERNAME)
+values ('3c3b237b526da4d5295059ee6549e4760bbe2cf4c8870b812a33f03b8c5dac10acc38237169771040d3be4435d3466b7a6c9815d304ce91ee4638d648b53858b','3268c18f44269202589137af9a7f2f95','eamonnalphin@gmail.com')
+;
+*/
 
 /*
-SELECT
-  EVENTDAY.ID AS EVENTDAY,
-  COUNT(DISTINCT eventdayENTRY.MAC) AS ATTENDEES,
-  EVENTDAY.TIMESTART,
-  EVENTDAY.TIMEEND,
-  EVENTDAY.NOTE
-FROM
-  EVENTDAY
-LEFT JOIN EVENTDAYENTRY ON EVENTDAYENTRY.EVENTDAYID = EVENTDAY.ID
-WHERE EVENTDAY.eventID = 21
-GROUP BY EVENTDAY.NOTE]]></console>
+Contains the data for a specific event, like Burning Man
+*/
+CREATE TABLE EVENT (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  NAME varchar(255),
+  DESCRIPTION varchar(255),
+  ADMINID int,
+  FOREIGN KEY (ADMINID) REFERENCES ADMINLOGIN(ID)
+)
+
+
+CREATE TABLE EVENTDAY (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  EVENTID int,
+  ATTENDEES int,
+  TIMESTART datetime,
+  TIMEEND datetime,
+  NOTE VARCHAR(255),
+  FOREIGN KEY (EVENTID) REFERENCES EVENT(ID) ON DELETE
+);
+
+CREATE TABLE EVENTDAYENTRY (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  TIMESTAMP datetime,
+  MAC varchar(17),
+  WIFI varchar(255),
+  EVENTDAYID int,
+  FOREIGN KEY (EVENTDAYID) REFERENCES EVENTDAY(ID) ON DELETE
+);]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

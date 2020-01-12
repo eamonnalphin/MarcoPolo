@@ -17,4 +17,6 @@ router.post('/createNew',editEventScreenController.createNew);
 
 router.post('/updateEvent', editEventScreenController.updateEvent);
 
+router.post('/deleteEvent', editEventScreenController.deleteEvent);
+
 module.exports = router

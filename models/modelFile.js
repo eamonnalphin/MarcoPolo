@@ -405,6 +405,10 @@ function updateEvent(eventID, eventName, eventDescription, callback){
     })
 }
 
+function deleteEventWithID(eventID, callback){
+    let deleteCommand = "DELETE FROM "
+}
+
 
 module.exports = {
     verifyLogin:verifyLogin,

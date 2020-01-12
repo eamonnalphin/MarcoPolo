@@ -112,6 +112,9 @@ exports.saveEvent = (req, res, next) =>{
 
 }
 
+exports.deleteEvent = (req, res, next)=>{
+
+}
 
 /**
  * Renders the page

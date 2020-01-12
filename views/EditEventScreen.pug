@@ -16,18 +16,22 @@ block content
                         .chart-bar
                             canvas#scatterChart
 
-        form(action="/editEventScreen/updateEvent", method="post").form-group
-            input(type="text" name="eventName" value=eventName).form-control
-            input(type="text" name="eventDescription" value=eventDescription).form-control
-            button(type="submit").btn.btn-primary Update
+        .row
+            .col-lg-5
+                form(action="/editEventScreen/updateEvent", method="post").form-group
+                    input(type="text" name="eventName" value=eventName).form-control
+                    input(type="text" name="eventDescription" value=eventDescription).form-control
+                    button(type="submit").btn.btn-primary Update
     else
         h1 Create New Event
         p Give your event a name and description
 
-        form(action="/editEventScreen/saveEvent", method="post").form-group
-            input(type="text" name="eventName" placeholder="Event Name").form-control
-            input(type="text" name="eventDescription" placeholder="Description").form-control
-            button(type="submit").btn.btn-primary Save
+        .row
+            .col-lg-5
+                form(action="/editEventScreen/saveEvent", method="post").form-group
+                    input(type="text" name="eventName" placeholder="Event Name").form-control
+                    input(type="text" name="eventDescription" placeholder="Description").form-control
+                    button(type="submit").btn.btn-primary Save
 
 
 
@@ -58,6 +62,13 @@ block content
                             input(type="hidden" name="endTime" value=row.endTime)
                             button(type="submit").btn.btn-secondary view
 
+
+    .text-center
+        .row.d-flex.justify-content-center
+            .col-lg-5
+                form(action="/editEventScreen/deleteEvent", method="post").form-group
+                    input(type="hidden" name="eventID" value=eventID).form-control
+                    button(type="submit").btn.btn-danger Delete Event
 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js")
     script(src='/js/lineChart.js')
