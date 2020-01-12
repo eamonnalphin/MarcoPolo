@@ -1,24 +1,38 @@
 extends layout
 
 block content
-    h1= title
-    h2 Event ID: #{eventID}
-    p View the entries for an event and edit your event's information.
-
-    .row
-        .col
-            .card.shadow.mb-4
-                .card-header.py-3
-                    h6.m-0.font-weight-bold.text-primary Bar Chart
-                .card-body
-                    .chart-bar
-                        canvas#scatterChart
+    a(href="/mainScreen") Home
+    if viewExisting
+        h1= title
+        h2 Event ID: #{eventID}
+        p View the entries for an event and edit your event's information.
 
 
-    form(action="editEventScreen/saveEvent", method="post").form-group
-        input(type="text" name="eventName" placeholder="Event Name").form-control
-        input(type="text" name="eventDescription" placeholder="Description").form-control
-        button(type="submit").btn.btn-primary submit
+        .row
+            .col
+                .card.shadow.mb-4
+                    .card-header.py-3
+                        h6.m-0.font-weight-bold.text-primary Bar Chart
+                    .card-body
+                        .chart-bar
+                            canvas#scatterChart
+
+        form(action="/editEventScreen/updateEvent", method="post").form-group
+            input(type="text" name="eventName" value=eventName).form-control
+            input(type="text" name="eventDescription" value=eventDescription).form-control
+            button(type="submit").btn.btn-primary Update
+    else
+        h1 Create New Event
+        p Give your event a name and description
+
+        form(action="/editEventScreen/saveEvent", method="post").form-group
+            input(type="text" name="eventName" placeholder="Event Name").form-control
+            input(type="text" name="eventDescription" placeholder="Description").form-control
+            button(type="submit").btn.btn-primary Save
+
+
+
+
 
 
     table.table.table-light.table-striped

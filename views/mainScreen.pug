@@ -2,22 +2,17 @@ extends layout
 
 
 block content
-    link(href='css/mdb.min.css', rel='stylesheet')
-    //- script(src='/js/lineChart.js')
-    //- script(src='/js/Chart.bundle.js')
+    a(href="/mainScreen") Home
+    h1 Dashboard
     .container-fluid
         .row
-            .col-3
-                i.far.fa-plus-square.fa-3x
             .col-6
-                .card.shadow.mb-4
-                    .card-header.py-3
-                        h6.m-0.font-weight-bold.text-primary Bar Chart
-                    .card-body
-                        .chart-bar
-                            canvas#scatterChart
-            .col-3
-                i.fas.fa-sign-out-alt.fa-3x.float-right
+                form.form-group(action="/editEventScreen/createNew" method="POST")
+                    button(type="submit").far.fa-plus-square.fa-3x
+
+            .col-6
+                form.form-group(action="/loginScreen/signout" method="POST")
+                    button(type="submit").fas.fa-sign-out-alt.fa-3x.float-right
 
 
         table.table.table-light.table-striped
@@ -25,7 +20,7 @@ block content
                 tr
 
                     th ID
-                    th Name
+                    th Event Name
                     th Description
             tbody
                 each row in myEvents
@@ -37,6 +32,7 @@ block content
                             form(action="/editEventScreen/ID" method="POST")
                                 input(type="hidden" name="eventID" value=row.ID)
                                 input(type="hidden" name="eventName" value=row.NAME)
+                                input(type="hidden" name="eventDescription" value=row.DESCRIPTION)
                                 button(type="submit").btn.btn-secondary view
 
 

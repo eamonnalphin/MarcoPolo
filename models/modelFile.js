@@ -380,6 +380,30 @@ function getAllEventDayEntriesForDayID(eventDayID, callback){
     })
 }
 
+/**
+ * UPdates the event with the given ID
+ * @param eventID
+ * @param eventName
+ * @param eventDescription
+ * @param callback
+ */
+function updateEvent(eventID, eventName, eventDescription, callback){
+    let updateCommand = "UPDATE EVENT SET NAME = ?, SET DESCRIPTION = ? WHERE ID = ?"
+
+    let outcome = false;
+
+    db.pool.getConnection((err,connection)=>{
+        connection.query(updateCommand, [eventName, eventDescription, eventID], (err, rows)=>{
+            if(!err){
+                console.log("updated: " + JSON.stringify(rows))
+                outcome = true;
+            }else{
+                console.log("Error: " + err);
+            }
+            callback(outcome);
+        })
+    })
+}
 
 
 module.exports = {
@@ -388,5 +412,6 @@ module.exports = {
     getAllEvents:getAllEvents,
     createANewEvent:createNewEvent,
     getAllEventDays:getAllEventDays,
-    getAllEventDayEntriesForDayID:getAllEventDayEntriesForDayID
+    getAllEventDayEntriesForDayID:getAllEventDayEntriesForDayID,
+    updateEvent:updateEvent
 }
