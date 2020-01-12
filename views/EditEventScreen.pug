@@ -30,6 +30,9 @@ block content
                     TD
                         form(action="/viewDayData/ID" method="POST")
                             input(type="hidden" name="eventDayID" value=row.eventDayID)
+                            input(type="hidden" name="eventName" value=title)
+                            input(type="hidden" name="startTime" value=row.startTime)
+                            input(type="hidden" name="endTime" value=row.endTime)
                             button(type="submit").btn.btn-secondary view
 
 

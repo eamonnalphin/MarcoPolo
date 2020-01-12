@@ -15,16 +15,16 @@ exports.post = (req, res, next) => {
 
 
 exports.editThisEventID = (req,res,next)=>{
-    console.log("loading for this ID: " + req.body.eventID);
-    renderPage(req,res,req.body.eventID)
+    console.log("loading for: " + JSON.stringify(req.body));
+    renderPage(req,res)
 
 }
 
 exports.saveEvent = (req, res, next) =>{
     console.log("trying to save an event: " + JSON.stringify(req.body))
-    let eventName = req.body.eventName
-    let eventDescription = req.body.eventDescription
-    let adminID = req.session.userID
+    let eventName = req.body.eventName;
+    let eventDescription = req.body.eventDescription;
+    let adminID = req.session.userID;
     console.log("saving event for admin ID: " + adminID);
 
 
@@ -48,12 +48,12 @@ exports.saveEvent = (req, res, next) =>{
  * Renders the page
  * @param res
  **/
-function renderPage(req, res, eventID) {
+function renderPage(req, res) {
 
-    appModel.getAllEventDays(eventID, function(theseDays){
+    appModel.getAllEventDays(req.body.eventID, function(theseDays){
         res.render('editEventScreen', {
-            title: 'editEventScreen',
-            eventID: eventID,
+            title: req.body.eventName,
+            eventID: req.body.eventID,
             eventsDaysRows: theseDays
         });
     })

@@ -36,6 +36,7 @@ block content
                         TD
                             form(action="/editEventScreen/ID" method="POST")
                                 input(type="hidden" name="eventID" value=row.ID)
+                                input(type="hidden" name="eventName" value=row.NAME)
                                 button(type="submit").btn.btn-secondary view
 
 
