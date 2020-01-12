@@ -5,7 +5,7 @@ block content
     script(src="/js/editEventScreen.js")
     if viewExisting
         h1= title
-        h2 Event ID: #{eventID}
+        h2#eventIDText Event ID: #{eventID}
         p View the entries for an event and edit your event's information.
 
 
@@ -13,7 +13,7 @@ block content
             .col
                 .card.shadow.mb-4
                     .card-header.py-3
-                        h6.m-0.font-weight-bold.text-primary Bar Chart
+                        h6.m-0.font-weight-bold.text-primary #{title} Attendance
                     .card-body
                         .chart-bar
                             canvas#scatterChart

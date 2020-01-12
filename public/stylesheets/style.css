@@ -26,3 +26,7 @@ a {
 #brand {
   font-weight: bold;
 }
+
+#eventIDText {
+  font-size: 14pt;
+}
