@@ -58,7 +58,8 @@ function renderPage(req,res) {
             eventName: req.body.eventName,
             startTime: req.body.startTime,
             endTime: req.body.endTime,
-            eventsDayEntryRows: theseRows
+            eventsDayEntryRows: theseRows,
+            eventDayID: req.body.eventDayID
         });
     })
 
