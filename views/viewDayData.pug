@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    h1= title
+    p View the data for this day of this event.
+
+
+    table.table.table-light.table-striped
+        thead
+            tr
+                th TIMESTAMP
+                th MAC
+                th WIFI
+
+        tbody
+            each row in eventsDayEntryRows
+                tr
+                    TD #{row.timestamp}
+                    TD #{row.MAC}
+                    TD #{row.WIFI}
+
+
+

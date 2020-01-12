@@ -1,5 +1,6 @@
 let db = require('../util/database');
 let crypto = require('crypto')
+let moment = require('moment');
 
 
 
@@ -147,7 +148,212 @@ function verifyPassword(username, password,salt,callback){
 
 }
 
+/**
+ * Gets the id for the given username. 
+ * @param {*} username 
+ * @param {*} callback 
+ */
+function getIDForUser(userName,callback){
+    let getCommand = "SELECT ID FROM ADMINLOGIN WHERE USERNAME = ?"
+    let userID = ""
+
+    db.pool.getConnection((err, connection)=>{
+        connection.query(getCommand,[userName], (err,rows)=>{
+            if(!err){
+                try{
+                    console.log("Rows pulled:" + JSON.stringify(rows))
+                    userID = rows[0].ID
+                   
+                } catch (tryErr){
+                    console.log("Error try to pull rows" + tryerr)
+                }
+            }
+            
+            callback(userID);
+            
+        })
+
+    })
+}
+
+/**
+ * Creates a new event
+ * @param {*} eventName 
+ * @param {*} eventDescription 
+ * @param {*} adminID 
+ * @param {*} callback 
+ */
+function createNewEvent(eventName, eventDescription, adminID, callback) {
+    let insertCommand = "INSERT INTO EVENT (NAME, DESCRIPTION, ADMINID) VALUES (?, ?, ?)"
+    let outcome = false 
+
+    db.pool.getConnection((err, connection)=>{
+        connection.query(insertCommand, [eventName, eventDescription, adminID], (err,rows)=>{
+            if(!err){
+                console.log("Rows affected: " + JSON.stringify(rows))
+                outcome = true;
+
+            }else{
+                console.log("Error: " + err)
+                outcome = false
+            }
+
+            callback(outcome);
+
+        })
+    })
+
+}
+
+
+/**
+ * Get all events for this admin ID
+ * @param adminID
+ * @param callback
+ */
+function getAllEvents(adminID, callback){
+    let getCommand = "SELECT ID, NAME, DESCRIPTION FROM EVENT WHERE ADMINID = ?"
+
+    let outcome = false
+    let theseRows = []
+
+    console.log("ADMINID: " + adminID);
+    db.pool.getConnection((err, connection)=>{
+        connection.query(getCommand, [adminID], (err, rows)=>{
+            if(!err){
+                console.log("rows: " + JSON.stringify(rows));
+                theseRows = rows;
+            }else{
+                console.log("Error: " + err);
+                outcome = false;
+            }
+
+            callback(theseRows);
+
+        })
+    })
+}
+
+
+/**
+ * GEt all event days for a given event ID
+ * @param eventID
+ * @param callback
+ */
+function getAllRawEventsDays(eventID, callback){
+    let getCommand = "SELECT ID, ATTENDEES, TIMESTART, TIMEEND, NOTE FROM EVENTDAY WHERE EVENTID = ?"
+
+    let theseDays = []
+
+    db.pool.getConnection((err, connection)=>{
+        connection.query(getCommand, [eventID], (err, rows)=>{
+            if(!err){
+                console.log("rows: " + JSON.stringify(rows));
+                theseDays = rows;
+            }else{
+                console.log("Error: " + err);
+            }
+            callback(theseDays);
+        })
+    })
+}
+
+/**
+ * Makes a date readable.
+ * @param rawDate
+ * @returns {string}
+ */
+function makePrettyDate(rawDate){
+    let prettyDate =  moment(rawDate).format('MMM DD, YYYY hh:mm a');
+    return prettyDate;
+}
+
+/**
+ * Gets all event days, but formatted.
+ * @param eventID
+ * @param callback
+ */
+function getAllEventDays(eventID, callback){
+
+
+    getAllRawEventsDays(eventID, function(rows){
+
+        var prettyRows = [];
+
+        rows.forEach((item,index)=>{
+            console.log("this row: " + JSON.stringify(item))
+            var eventDayObj = {
+                eventDayID: item.ID,
+                startTime:makePrettyDate(item.TIMESTART),
+                endTime:makePrettyDate(item.TIMEEND),
+                attendeeCount:item.ATTENDEES,
+                note:item.NOTE
+            }
+
+            prettyRows.push(eventDayObj);
+
+        })
+        callback(prettyRows);
+    })
+}
+
+/**
+ * Gets the raw event entries for a day id.
+ * @param eventDayID
+ * @param callback
+ */
+function getAllRawEventDayEntriesForDayID(eventDayID, callback){
+    let getCommand = "SELECT TIMESTAMP, MAC, WIFI FROM EVENTDAYENTRY WHERE EVENTDAYID = ?"
+
+    let theseEntries = []
+
+    db.pool.getConnection((err, connection)=>{
+        connection.query(getCommand, [eventDayID], (err, rows)=>{
+            if(!err){
+                console.log("rows: " + JSON.stringify(rows));
+                theseEntries = rows;
+            }else{
+                console.log("Error: " + err);
+            }
+            callback(theseEntries);
+        })
+    })
+}
+
+/**
+ * Get displayable entries
+ * @param eventDayID
+ * @param callback
+ */
+function getAllEventDayEntriesForDayID(eventDayID, callback){
+
+    getAllRawEventDayEntriesForDayID(eventDayID, function(rows){
+
+        var prettyRows = [];
+
+        rows.forEach((item,index)=>{
+            console.log("this row: " + JSON.stringify(item))
+            var eventDayEntryObj = {
+                ID: item.ID,
+                timestamp:makePrettyDate(item.TIMESTAMP),
+                MAC:item.MAC,
+                WIFI:item.WIFI,
+            }
+
+            prettyRows.push(eventDayEntryObj);
+
+        })
+        callback(prettyRows);
+    })
+}
+
+
+
 module.exports = {
     getsaltandpw:getEncryptedPasswordAndNewSalt,
-    verifyLogin:verifyLogin
+    verifyLogin:verifyLogin,
+    getID:getIDForUser,
+    createANewEvent:createNewEvent,
+    getAllEventDays:getAllEventDays,
+    getAllEventDayEntriesForDayID:getAllEventDayEntriesForDayID
 }

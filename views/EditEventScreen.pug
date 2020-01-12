@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    h1= title
+    h2 Event ID: #{eventID}
+    p View the entries for an event and edit your event's information.
+
+    form(action="editEventScreen/saveEvent", method="post").form-group
+        input(type="text" name="eventName" placeholder="Event Name").form-control
+        input(type="text" name="eventDescription" placeholder="Description").form-control
+        button(type="submit").btn.btn-primary submit
+
+
+    table.table.table-light.table-striped
+        thead
+            tr
+
+                th START TIME
+                th END TIME
+                th ATTENDEE COUNT
+                th NOTE
+
+        tbody
+            each row in eventsDaysRows
+                tr
+                    TD #{row.startTime}
+                    TD #{row.endTime}
+                    TD #{row.attendeeCount}
+                    TD #{row.note}
+                    TD
+                        form(action="/viewDayData/ID" method="POST")
+                            input(type="hidden" name="eventDayID" value=row.eventDayID)
+                            button(type="submit").btn.btn-secondary view
+
+
+
