@@ -1,6 +1,6 @@
 var ctx = document.getElementById("scatterChart").getContext('2d');
 var myChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'scatter',
     data: {
         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
         datasets: [{

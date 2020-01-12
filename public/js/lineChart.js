@@ -3,7 +3,7 @@ var scatterData = {
     datasets: [{
         borderColor: 'rgba(99,0,125, .2)',
         backgroundColor: 'rgba(99,0,125, .5)',
-        label: 'V(node2)',
+        label: 'Population',
         data: [{
             x: 1,
             y: -1.711e-2,
@@ -110,19 +110,19 @@ var config1 = new Chart.Scatter(ctxSc, {
         },
         scales: {
             xAxes: [{
-                type: 'logarithmic',
+                type: 'linear',
                 position: 'bottom',
-                ticks: {
-                    userCallback: function (tick) {
-                        var remain = tick / (Math.pow(10, Math.floor(Chart.helpers.log10(tick))));
-                        if (remain === 1 || remain === 2 || remain === 5) {
-                            return tick.toString() + 'Hz';
-                        }
-                        return '';
-                    },
+                ticks: {1: 2
+                    // userCallback: function (tick) {
+                    //     var remain = tick / (Math.pow(10, Math.floor(Chart.helpers.log10(tick))));
+                    //     if (remain === 1 || remain === 2 || remain === 5) {
+                    //         return tick.toString() + 'Hz';
+                    //     }
+                    //     return '';
+                    // },
                 },
                 scaleLabel: {
-                    labelString: 'Frequency',
+                    labelString: 'Time',
                     display: true,
                 }
             }],
@@ -134,7 +134,7 @@ var config1 = new Chart.Scatter(ctxSc, {
                     }
                 },
                 scaleLabel: {
-                    labelString: 'Voltage',
+                    labelString: 'Population',
                     display: true
                 }
             }]

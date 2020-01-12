@@ -23,20 +23,12 @@ block content
             li.list-group-item.active Event 1
                 col-1.float-right Edit
             each val in [2, 3, 4, 5, 6]
-                li.list-group-item Event val
+                li.list-group-item Event #{val}
                     .col-1.float-right Edit
-        //- ul.list-group
-        //-     li.list-group-item.active Event 1
-        //-         .col-1.float-right Edit
-        //-     li.list-group-item Event 2
-        //-         .col-1.float-right Edit
-        //-     li.list-group-item Event 3
-        //-         .col-1.float-right Edit
         .row.pb-3
 
     script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js')
     script(type='text/javascript', src='js/mdb.min.js')
-    script(src='/js/chartSettings.js')
     script(src='/js/lineChart.js')
 
 
