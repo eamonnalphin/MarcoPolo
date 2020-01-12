@@ -241,9 +241,21 @@ function getAllEvents(adminID, callback){
  * @param callback
  */
 function getAllRawEventsDays(eventID, callback){
-    let getCommand = "SELECT ID, ATTENDEES, TIMESTART, TIMEEND, NOTE FROM EVENTDAY WHERE EVENTID = ?"
 
-    let theseDays = []
+
+    let getCommand = "SELECT\n" +
+        "  EVENTDAY.ID AS ID,\n" +
+        "  COUNT(DISTINCT EVENTDAYENTRY.MAC) AS ATTENDEES,\n" +
+        "  EVENTDAY.TIMESTART,\n" +
+        "  EVENTDAY.TIMEEND,\n" +
+        "  EVENTDAY.NOTE\n" +
+        "FROM\n" +
+        "  EVENTDAY\n" +
+        "LEFT JOIN EVENTDAYENTRY ON EVENTDAYENTRY.EVENTDAYID = EVENTDAY.ID\n" +
+        "WHERE EVENTDAY.eventID = ?\n" +
+        "GROUP BY EVENTDAY.NOTE";
+
+    let theseDays = [];
 
     db.pool.getConnection((err, connection)=>{
         connection.query(getCommand, [eventID], (err, rows)=>{
@@ -295,6 +307,28 @@ function getAllEventDays(eventID, callback){
         })
         callback(prettyRows);
     })
+}
+
+/**
+ * Count the attendance for a given event day
+ * @param eventDayID
+ * @param callback
+ */
+function getAttendanceForEventDay(eventDayID,callback){
+    let getCommand = "SELECT COUNT(DISTINCT MAC) FROM eventdayentry where eventdayID = ?"
+    let count = 0;
+    db.pool.getConnection((err, connection)=>{
+        connection.query(getCommand, [eventDayID], (err, rows)=>{
+            if(!err){
+                count = rows[0].COUNT
+            }else{
+                console.log("Error: " + err)
+            }
+        })
+
+        callback(count)
+    })
+
 }
 
 /**

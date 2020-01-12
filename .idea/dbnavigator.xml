@@ -25,13 +25,13 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="f0c6c574-e9ea-4f62-b8e8-02fa4aa4e267">
-        <schema name="heroku_46471de35bf643d" object-types="procedure, function, view, table" />
+        <schema name="heroku_46471de35bf643d" object-types="procedure, column, function, view, table" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f0c6c574-e9ea-4f62-b8e8-02fa4aa4e267">
-      <console name="Connection" type="STANDARD" schema="heroku_46471de35bf643d" session="Main">/*
+      <console name="Connection" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[/*
 CREATE TABLE ADMINLOGIN(
     ID int not null AUTO_INCREMENT,
     USERNAME varchar(255) not null,
@@ -83,8 +83,28 @@ CREATE TABLE EVENTDAYENTRY (
   WIFI varchar(255),
   EVENTDAYID int,
   FOREIGN KEY (EVENTDAYID) REFERENCES EVENTDAY(ID)
-);</console>
-      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[Select * from event;]]></console>
+);]]></console>
+      <console name="Connection 1" type="STANDARD" schema="heroku_46471de35bf643d" session="Main"><![CDATA[/*
+SELECT distinct MAC FROM eventdayentry where eventdayID = 1;
+
+there are 27 unique mac addresses for QDS hackathon day 1
+
+/*
+SELECT ID, ATTENDEES, TIMESTART, TIMEEND, NOTE FROM EVENTDAY WHERE EVENTID = 21
+*/
+
+
+SELECT
+  EVENTDAY.ID AS EVENTDAY,
+  COUNT(DISTINCT eventdayENTRY.MAC) AS ATTENDEES,
+  EVENTDAY.TIMESTART,
+  EVENTDAY.TIMEEND,
+  EVENTDAY.NOTE
+FROM
+  EVENTDAY
+LEFT JOIN EVENTDAYENTRY ON EVENTDAYENTRY.EVENTDAYID = EVENTDAY.ID
+WHERE EVENTDAY.eventID = 21
+GROUP BY EVENTDAY.NOTE]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
