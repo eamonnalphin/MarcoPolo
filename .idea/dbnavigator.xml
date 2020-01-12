@@ -25,7 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="f0c6c574-e9ea-4f62-b8e8-02fa4aa4e267">
-        <schema name="heroku_46471de35bf643d" object-types="index, column, table, view, function, procedure" />
+        <schema name="heroku_46471de35bf643d" object-types="table, view, function, procedure" />
       </connection>
     </loaded-nodes>
   </component>
@@ -40,11 +40,6 @@ CREATE TABLE ADMINLOGIN(
     PRIMARY KEY (ID)
 );
 
-
-
-
-
-
 insert into ADMINLOGIN (
     `PASSWORD`,
     SALT,
@@ -53,10 +48,42 @@ values ('3c3b237b526da4d5295059ee6549e4760bbe2cf4c8870b812a33f03b8c5dac10acc3823
 ;
 
 */
-SELECT * FROM ADMINLOGIN;
 
+/*
+Contains the data for a specific event, like Burning Man
+*/
+CREATE TABLE EVENT (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  NAME varchar(255),
+  DESCRIPTION varchar(255),
+  ADMINID int,
+  FOREIGN KEY (ADMINID) REFERENCES ADMINLOGIN(ID)
+);
 
-/*SELECT USERNAME, SALT FROM USERS WHERE USERNAME = 'admin@gmail.com' LIMIT 1*/]]></console>
+/*
+Contains data for a day of the event, like Day 1 of burning man
+*/
+CREATE TABLE EVENTDAY (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  EVENTID int,
+  ATTENDEES int,  
+  TIMESTART datetime,
+  TIMEEND datetime,
+  NOTE VARCHAR(255),
+  FOREIGN KEY (EVENTID) REFERENCES EVENT(ID)
+);
+
+/*
+Contains entries for a day of an event, like 01:10:20:30:30
+*/
+CREATE TABLE EVENTDAYENTRY (
+  ID int PRIMARY KEY AUTO_INCREMENT,
+  TIMESTAMP datetime,
+  MAC varchar(17),
+  WIFI varchar(255),
+  EVENTDAYID int,
+  FOREIGN KEY (EVENTDAYID) REFERENCES EVENTDAY(ID)
+);]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
