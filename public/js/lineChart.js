@@ -126,8 +126,10 @@ var config1 = new Chart.Scatter(ctxSc, {
                 type: 'linear',
                 ticks: {
                     beginAtZero: true,
-                    maxTicksLimit: 15,
-                    stepSize: 50
+                    maxTicksLimit: 20,
+                    min: 0,
+                    max: 200,
+                    stepSize: 25
                 },
                 scaleLabel: {
                     labelString: 'Population',
