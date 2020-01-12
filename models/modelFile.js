@@ -149,7 +149,7 @@ function verifyPassword(username, password,salt,callback){
 }
 
 function registerNewUser(userName,password,callback){
-    //sql command
+    //sql command that gets passed into the parameters of connection.query
     let insertCommand = "INSERT INTO ADMINLOGIN (username, password, salt) VALUES (?, ?, ?);"
 
     let PS = getEncryptedPasswordAndNewSalt(password);
