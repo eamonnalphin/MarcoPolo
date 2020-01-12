@@ -1,14 +1,20 @@
 extends layout
 
 block content
+    h1 Login Screen
+
     .container-fluid.mainContainer
-        h1 Login Screen
-        form(action="/LoginScreen/auth" method = "POST")
-            .form-group
-                label(for="usernameInput") Email Address
-                input(type="email" name="username" placeholder="Enter Email").form-control#userEmail
-            .form-group
-                label(for="password") Password
-                input(type="password" name="password" placeholder="Enter Password").form-control#userPassword
-            button(type="submit").btn.btn-primary Login
+        .text-center
+            .row.d-flex.justify-content-center
+                .col-md-4
+                    .loginBox
+                        form(action="/LoginScreen/auth" method = "POST")
+                            .form-group
+                                label(for="userEmail") Email Address
+                                input(type="email" name="username" placeholder="Enter Email").form-control.form-control-lg.text-center#userEmail
+                            .form-group
+                                label(for="userPassword") Password
+                                input(type="password" name="password" placeholder="Enter Password").form-control.form-control-lg.text-center#userPassword
+                            button(type="submit").btn.btn-primary Login
+
         .errorMessage #{errorMessage}
